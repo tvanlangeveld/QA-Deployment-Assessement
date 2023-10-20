@@ -3,6 +3,12 @@ const bots = require("./src/botsData");
 const shuffle = require("./src/shuffle");
 const path = require('path')
 
+var Rollbar = require('rollbar')
+var rollbar = new Rollbar({
+  accessToken: '37bdd665c7384909bf4105ba72fdf3eb',
+  captureUncaught: true,
+  captureUnhandledRejections: true,
+})
 
 
 const playerRecord = {
@@ -43,8 +49,10 @@ const calculateHealthAfterAttack = ({ playerDuo, compDuo }) => {
 
 app.get("/api/robots", (req, res) => {
   try {
+    KodaVan()
     res.status(200).send(botsArr);
   } catch (error) {
+    rollbar.warning('needs fixing')
     console.error("ERROR GETTING BOTS", error);
     res.sendStatus(400);
   }
@@ -52,9 +60,11 @@ app.get("/api/robots", (req, res) => {
 
 app.get("/api/robots/shuffled", (req, res) => {
   try {
+    Maddyvan()
     let shuffled = shuffle(bots);
     res.status(200).send(shuffled);
   } catch (error) {
+    rollbar.critical('this needs fixing asap! critical ERROR!!!')
     console.error("ERROR GETTING SHUFFLED BOTS", error);
     res.sendStatus(400);
   }
@@ -62,6 +72,7 @@ app.get("/api/robots/shuffled", (req, res) => {
 
 app.post("/api/duel", (req, res) => {
   try {
+    tannervan()
     const { compDuo, playerDuo } = req.body;
 
     const { compHealth, playerHealth } = calculateHealthAfterAttack({
@@ -78,6 +89,7 @@ app.post("/api/duel", (req, res) => {
       res.status(200).send("You won!");
     }
   } catch (error) {
+    rollbar.debug('this function needs debugging')
     console.log("ERROR DUELING", error);
     res.sendStatus(400);
   }
@@ -85,8 +97,10 @@ app.post("/api/duel", (req, res) => {
 
 app.get("/api/player", (req, res) => {
   try {
+    breakFunc()
     res.status(200).send(playerRecord);
   } catch (error) {
+    rollbar.error('breakFunc didnt work')
     console.log("ERROR GETTING PLAYER STATS", error);
     res.sendStatus(400);
   }
