@@ -49,7 +49,7 @@ const calculateHealthAfterAttack = ({ playerDuo, compDuo }) => {
 
 app.get("/api/robots", (req, res) => {
   try {
-    KodaVan()
+    // KodaVan()
     res.status(200).send(botsArr);
   } catch (error) {
     rollbar.warning('needs fixing')
@@ -60,7 +60,7 @@ app.get("/api/robots", (req, res) => {
 
 app.get("/api/robots/shuffled", (req, res) => {
   try {
-    Maddyvan()
+    // Maddyvan()
     let shuffled = shuffle(bots);
     res.status(200).send(shuffled);
   } catch (error) {
@@ -72,7 +72,7 @@ app.get("/api/robots/shuffled", (req, res) => {
 
 app.post("/api/duel", (req, res) => {
   try {
-    tannervan()
+    // tannervan()
     const { compDuo, playerDuo } = req.body;
 
     const { compHealth, playerHealth } = calculateHealthAfterAttack({
@@ -97,7 +97,7 @@ app.post("/api/duel", (req, res) => {
 
 app.get("/api/player", (req, res) => {
   try {
-    breakFunc()
+    // breakFunc()
     res.status(200).send(playerRecord);
   } catch (error) {
     rollbar.error('breakFunc didnt work')
